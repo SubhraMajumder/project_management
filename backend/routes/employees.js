@@ -16,13 +16,13 @@ router.get('/', async (req, res) => {
 
 // Add new employee
 router.post('/', async (req, res) => {
-  const { name, email, role } = req.body;
+  const { name, email, password, role } = req.body;
   try {
     const [result] = await db.query(
-      'INSERT INTO users (name, email, role) VALUES (?, ?, ?)',
-      [name, email, role]
+      'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+      [name, email, password, role]
     );
-    res.status(201).json({ id: result.insertId, name, email, role });
+    res.status(201).json({ id: result.insertId, name, email, password, role });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error adding employee' });
